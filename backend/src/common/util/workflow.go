@@ -907,13 +907,16 @@ func (w *Workflow) NodeStatuses() map[string]NodeStatus {
 	rev := make(map[string]NodeStatus, len(w.Status.Nodes))
 	for id, node := range w.Status.Nodes {
 		rev[id] = NodeStatus{
-			ID:          RetrievePodName(*w.Workflow, node),
-			DisplayName: node.DisplayName,
-			State:       string(node.Phase),
-			StartTime:   node.StartedAt.Unix(),
-			CreateTime:  node.StartedAt.Unix(),
-			FinishTime:  node.FinishedAt.Unix(),
-			Children:    node.Children,
+			ID:           RetrievePodName(*w.Workflow, node),
+			DisplayName:  node.DisplayName,
+			State:        string(node.Phase),
+			Message:      node.Message,
+			NodeType:     string(node.Type),
+			HostNodeName: node.HostNodeName,
+			StartTime:    node.StartedAt.Unix(),
+			CreateTime:   node.StartedAt.Unix(),
+			FinishTime:   node.FinishedAt.Unix(),
+			Children:     node.Children,
 		}
 	}
 	return rev
